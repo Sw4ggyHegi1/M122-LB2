@@ -1,5 +1,15 @@
 # M122-LB2
 
+## Checkliste
+Checkliste mit Funktionen die das Script machen soll
+- [x] User Erstellen
+- [x] User Löschen
+- [ ] User Suchen -> in arbeit
+- [x] CSV Import
+- [ ] CSV Export
+- [ ] User in Organisation Unit verschieben
+
+
 ## Usage
 
 Create User
