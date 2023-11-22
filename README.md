@@ -1,5 +1,8 @@
 # M122-LB2
 
+## Beschreibung
+Dieses Script soll die Bedienung im AD mittels dem AD Powershell Modul vereinfachen.
+
 ## Checkliste
 Checkliste mit Funktionen die das Script machen soll
 - [x] User Erstellen
