@@ -40,7 +40,7 @@ if ($AddUser) {
     }
     
 } elseif ($Import) {
-    $csvPath = Read-Host "Geben Sie den Pfad zur CSV-Datei für den Massenimport ein"
+    $csvPath = $Import
 
     if (-not (Test-Path -Path $csvPath -PathType Leaf)) {
         Write-Host "Die angegebene Datei existiert nicht oder ist ungültig. Bitte geben Sie einen gültigen Pfad an."
@@ -50,15 +50,17 @@ if ($AddUser) {
 
         # Durchlaufen der Benutzerdaten und Erstellen der Benutzer im AD
         foreach ($user in $users) {
+            $Name = $user.Anzeigename
             $firstName = $user.Vorname
             $lastName = $user.Nachname
             $userName = $user.Benutzername
             $password = $user.Passwort
+            $userPrincipalName = $user.UserPrincipalName
 
             # Prüfen, ob der Benutzer bereits vorhanden ist
             if (-not (Get-ADUser -Filter { SamAccountName -eq $userName })) {
                 # Benutzer erstellen
-                New-ADUser -SamAccountName $userName -GivenName $firstName -Surname $lastName -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -Enabled $true
+                New-ADUser -SamAccountName $userName -UserPrincipalName $userPrincipalName -Name $Name -GivenName $firstName -Surname $lastName -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -Enabled $true -ChangePasswordAtLogon $true
                 Write-Host "Benutzer '$userName' wurde erstellt."
             } else {
                 Write-Host "Benutzer '$userName' existiert bereits."
