@@ -7,7 +7,7 @@ Dieses Script soll die Bedienung im AD mittels dem AD Powershell Modul vereinfac
 Checkliste mit Funktionen die das Script machen soll
 - [x] User Erstellen
 - [x] User Löschen
-- [ ] User Suchen -> in arbeit
+- [x] User Suchen
 - [x] CSV Import
 - [ ] CSV Export
 - [ ] User in Organisation Unit verschieben
@@ -17,15 +17,22 @@ Checkliste mit Funktionen die das Script machen soll
 
 Create User
 ```powershell
-.\EzAD.ps1 -AddUser [Username eingeben]
+.\EzAD.ps1 -AddUser "Benutzername"
 ```
 
 Delete User
 ```powershell
-.\EzAD.ps1 -DeleteUser [SamAccountName eingeben]
+.\EzAD.ps1 -DeleteUser "Benutzername"
+```
+
+Search User
+```powershell
+.\EzAD.ps1 -SearchUser "Benutzername"
 ```
 
 Import CSV
 ```powershell
 .\EzAD.ps1 -Import "C:\pfad\zur\CSV"
 ```
+> [!NOTE]
+> Eine Vorlage für den CSV Import ist beigelegt.
