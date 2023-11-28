@@ -2,7 +2,7 @@ param (
     [string]$AddUser,
     [string]$DeleteUser,
     [string]$Import,
-    [string]$Search
+    [string]$SearchUser
 )
 
 # Überprüft, ob ein Benutzer erstellt werden soll
@@ -54,12 +54,11 @@ if ($AddUser) {
             $lastName = $user.Nachname
             $userName = $user.Benutzername
             $password = $user.Passwort
-            $department = $user.Abteilung
 
             # Prüfen, ob der Benutzer bereits vorhanden ist
             if (-not (Get-ADUser -Filter { SamAccountName -eq $userName })) {
                 # Benutzer erstellen
-                New-ADUser -SamAccountName $userName -GivenName $firstName -Surname $lastName -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -Enabled $true -Department $department
+                New-ADUser -SamAccountName $userName -GivenName $firstName -Surname $lastName -AccountPassword (ConvertTo-SecureString -AsPlainText $password -Force) -Enabled $true
                 Write-Host "Benutzer '$userName' wurde erstellt."
             } else {
                 Write-Host "Benutzer '$userName' existiert bereits."
@@ -67,17 +66,20 @@ if ($AddUser) {
         }
     }
 
-# --- UNDER CONSTRUCTION ---
-} elseif ($Search) {
-    $UserName = ""
+} elseif ($SearchUser) {
+    # Kopiert den String von $SearchUser in $UserName rein
+    $UserName = $SearchUser
+
+    # Sucht User
+    $foundUser = Get-ADUser -Filter {SamAccountName -eq $UserName}
     
-    if (Get-ADUser -Filter { SamAccountName -eq $UserName}){
-        Write-Host "Benutzer '$userName' existiert."
+    # Formatiert die Ausgabe in die Konsole
+    if ($foundUser){
+        $foundUser | Format-List -Property *
     } else {
         Write-Host "Benutzer '$userName' existiert nicht."
     }
-# --- UNDER CONSTRUCTION ---
 
 } else {
-    Write-Host "Es wurde keine gültige Aktion angegeben. Verwenden Sie '-AddUser', '-DeleteUser' oder '-Import', um eine Aktion auszuführen."
+    Write-Host "Es wurde keine gültige Aktion angegeben. Verwenden Sie '-AddUser', '-DeleteUser', '-SearchUser' oder '-Import', um eine Aktion auszuführen."
 }
