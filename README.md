@@ -13,7 +13,7 @@ Checkliste mit Funktionen die das Script machen soll
 - [ ] User in Organisation Unit verschieben
 
 ## Script ablauf
-[Flussdiagram](https://nc.daddyhegii.ch/index.php/apps/files_sharing/publicpreview/5tmfWeT5yK9gX3G?file=/&fileId=6460&x=1920&y=1080&a=true&etag=b6e43d91a0b9a18cc2f62a76c94c2340)
+![Flussdiagram](https://nc.daddyhegii.ch/index.php/apps/files_sharing/publicpreview/5tmfWeT5yK9gX3G?file=/&fileId=6460&x=1920&y=1080&a=true&etag=b6e43d91a0b9a18cc2f62a76c94c2340)
 
 ## Usage
 
