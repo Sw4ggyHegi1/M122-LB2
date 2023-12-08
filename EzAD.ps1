@@ -25,6 +25,7 @@ if ($AddUser) {
 
         $Password = Read-Host "Geben Sie das Passwort des Benutzers ein" -AsSecureString
         $UserParams.AccountPassword = $Password
+        $UserParams.ChangePasswordAtLogon = $true
 
         New-ADUser @UserParams
         Write-Host "Benutzer $($UserParams.SamAccountName) wurde erfolgreich erstellt."
