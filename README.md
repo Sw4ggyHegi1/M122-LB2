@@ -13,7 +13,7 @@ Checkliste mit Funktionen die das Script machen soll
 - [ ] User in Organisation Unit verschieben
 
 ## Script ablauf
-![Flussdiagram](https://github.com/Sw4ggyHegi1/M122-LB2/issues/1#issue-2032320056)
+[Flussdiagram](https://github.com/Sw4ggyHegi1/M122-LB2/issues/1#issue-2032320056)
 
 ## Usage
 
