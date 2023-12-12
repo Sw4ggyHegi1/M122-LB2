@@ -2,7 +2,8 @@ param (
     [string]$AddUser,
     [string]$DeleteUser,
     [string]$Import,
-    [string]$SearchUser
+    [string]$SearchUser,
+    [string]$Export
 )
 
 # Überprüft, ob ein Benutzer erstellt werden soll
@@ -25,7 +26,6 @@ if ($AddUser) {
 
         $Password = Read-Host "Geben Sie das Passwort des Benutzers ein" -AsSecureString
         $UserParams.AccountPassword = $Password
-        $UserParams.ChangePasswordAtLogon = $true
 
         New-ADUser @UserParams
         Write-Host "Benutzer $($UserParams.SamAccountName) wurde erfolgreich erstellt."
@@ -70,17 +70,33 @@ if ($AddUser) {
     }
 
 } elseif ($SearchUser) {
-    # Kopiert den String von $SearchUser in $UserName rein
     $UserName = $SearchUser
+    $foundUser = Get-ADUser -Filter { SamAccountName -eq $UserName }
 
-    # Sucht User
-    $foundUser = Get-ADUser -Filter {SamAccountName -eq $UserName}
-    
-    # Formatiert die Ausgabe in die Konsole
-    if ($foundUser){
-        $foundUser | Format-List -Property *
+    if ($foundUser) {
+        # kann spezifischen user exportieren
+        if ($Export) {
+            $ExportPath = $Export
+            if (-not [string]::IsNullOrWhiteSpace($ExportPath)) {
+                $foundUser | Select-Object SamAccountName, Name, UserPrincipalName | Export-Csv -Path $ExportPath -NoTypeInformation
+                Write-Host "Benutzerdaten von '$UserName' wurden erfolgreich nach '$ExportPath' exportiert."
+            } else {
+                Write-Host "Bitte geben Sie einen gültigen Pfad für den Export an."
+            }
+        } else {
+            $foundUser | Format-List -Property *
+        }
     } else {
-        Write-Host "Benutzer '$userName' existiert nicht."
+        Write-Host "Benutzer '$UserName' existiert nicht."
+    }
+
+} elseif ($Export) {
+    $ExportPath = $Export
+    if (-not [string]::IsNullOrWhiteSpace($ExportPath)) {
+        Get-ADUser -filter * -Properties * | Select-Object SamAccountName, Name, UserPrincipalName | Export-Csv -Path $ExportPath -NoTypeInformation
+        Write-Host "Benutzerdaten wurden erfolgreich nach '$ExportPath' exportiert."
+    } else {
+        Write-Host "Bitte geben Sie einen gültigen Pfad für den Export an."
     }
 
 } else {
