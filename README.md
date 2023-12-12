@@ -9,7 +9,7 @@ Checkliste mit Funktionen die das Script machen soll
 - [x] User Löschen
 - [x] User Suchen
 - [x] CSV Import
-- [ ] CSV Export
+- [x] CSV Export
 - [ ] User in Organisation Unit verschieben
 
 ## Script ablauf
@@ -34,7 +34,17 @@ Search User
 
 Import CSV
 ```powershell
-.\EzAD.ps1 -Import "C:\pfad\zur\CSV"
+.\EzAD.ps1 -Import "C:\pfad\zur\Import.csv"
 ```
 > [!NOTE]
 > Eine Vorlage für den CSV Import ist beigelegt.
+
+Export all AD users
+```powershell
+.\EzAD.ps1 -Export "C:\pfad\für\CSV_Export.csv"
+```
+
+Export specific AD user
+```powershell
+.\EzAD.ps1 -SearchUser "Benutzername" -Export "C:\pfad\für\CSV_Export.csv"
+```
