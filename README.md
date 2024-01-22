@@ -10,7 +10,7 @@ Checkliste mit Funktionen die das Script machen soll
 - [x] User Suchen
 - [x] CSV Import
 - [x] CSV Export
-- [ ] User in Organisation Unit verschieben
+- [x] User in Organisation Unit verschieben
 
 ## Script ablauf
 [Flussdiagram](https://github.com/Sw4ggyHegi1/M122-LB2/issues/1#issue-2032320056)
@@ -47,4 +47,9 @@ Export all AD users
 Export specific AD user
 ```powershell
 .\EzAD.ps1 -SearchUser "Benutzername" -Export "C:\pfad\für\CSV_Export.csv"
+```
+
+Move User to OU
+```powershell
+.\EzAD.ps1 -Move SamAccountName:OU 
 ```
